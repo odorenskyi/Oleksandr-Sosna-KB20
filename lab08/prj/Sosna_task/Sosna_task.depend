@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1618222942 source:d:\oleksandr-sosna-kb20\lab08\prj\sosna_task\main.cpp
+	<iostream>
+	"MyDevInfo.h"
+	<iomanip>
+
