@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1620771206 source:d:\oleksandr-sosna-kb20\lab09\prj\testdriver\main.cpp
+	<iostream>
+	<cmath>
+	"MyDevInfo.h"
+
