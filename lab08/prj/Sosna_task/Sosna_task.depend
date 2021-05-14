@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1618305787 source:d:\oleksandr-sosna-kb20\lab08\prj\sosna_task\main.cpp
+1620765740 source:d:\oleksandr-sosna-kb20\lab08\prj\sosna_task\main.cpp
 	<iostream>
 	"MyDevInfo.h"
 	<windows.h>
