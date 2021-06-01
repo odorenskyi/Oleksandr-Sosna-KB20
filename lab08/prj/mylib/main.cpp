@@ -2,6 +2,8 @@
 #include <math.h>
 #include <clocale>
 #include "MyDevInfo.h"
+#include <fstream>
+#include <ctime>
 
 using namespace std;
 
@@ -87,4 +89,137 @@ int bit_operation(unsigned int num)
     return zero;
     }
 }
+float checkfl(float num){
+  bool valid = false;
+  while (!valid){
+    valid = true;
+    cout << "Введіть коректне число: ";
+    cin >> num;
+    if(cin.fail()) {
+            cin.clear();
+      cin.ignore();
+      cout << "Не коректне число! ";
+      valid = false;
+    }
+
+  }
+  return num;
+}
+
+
+int checkint(int num){
+  bool valid = false;
+  while (!valid){
+    valid = true;
+    cout << "Введіть число: ";
+    cin >> num;
+    if(cin.fail()) {
+            cin.clear();
+      cin.ignore();
+      cout << "Не число! ";
+      valid = false;
+    }
+
+  }
+  return num;
+}
+int filefindstring(string infl, string outfl){ // 0 = nothing work, 1 = all works
+
+    string texte;
+    int upletters=0;
+
+
+        ifstream file2;
+        file2.open(infl, ios::in);
+        if(file2.is_open()){
+            cout<< "Файл успішно відкрито"<<endl;
+
+            while (getline(file2, texte)){
+                if(texte.length()<=10){
+                    cout<< "\t Помилка \n \t У файлі знаходиться не рядок"<<endl;
+                    return 0;
+                }
+                for (int i = 0; i< texte.length(); i++) {
+                    if ((texte[i] >= 'А' && texte[i] <= 'Я')||(texte[i]=='І')||(texte[i]=='Ї')||(texte[i]=='Є')) {
+                        upletters++;
+                    }
+                }
+            }
+            file2.close();
+
+            ofstream file;
+            file.open(outfl,ios::out);
+            if(file.is_open()){
+                cout<< "Файл успішно відкрито"<<endl;
+                file << "Розробник: Сосна Олександр. Центральноукраїнський нацiональний технiчний унiверситет Місто Кропивницький, Україна 2021"<<endl;
+                file<< "Кількість символів верхнього регістра у рядкові із вхідного файла: "<< upletters<<endl;
+                string s2 = ("Коли малим ти вперше став на ноги — Яка ж то радість матері була! Від тихої колиски до порога Вона тебе за руку провела. Вона прибігла стомлена з роботи, І, може, сон їй очі замикав, А дома — новий клопіт і турботи, І довга низка непочатих справ.");
+                if (s2.find(texte) != string::npos) {
+                    file<< "Рядок із вхідного файла знайдено у вірші Василя Симоненка \"Вклонися їй\""<<endl;
+                }else{
+                    file<< "Рядок із вхідного файла НЕ знайдено у вірші Василя Симоненка \"Вклонися їй\""<<endl;
+                }
+                cout<<"Роботу завершено. Все записано у файлі"<<endl;
+                return 1;
+            }else{
+                cout<< "Файл не відкрито/Не знайдено"<<endl;
+            }
+            file.close();
+        }else{
+            cout<< "Файл не відкрито/Не знайдено"<<endl;
+            return 0;
+        }
+
+}
+
+int filesize(string infl){//размер файла
+    time_t cur_date = time(0);
+    fstream file;
+    file.open(infl, ios::app);
+    if(file.is_open()){
+
+            cout<< "Файл успішно відкрито"<<endl;
+            file<<endl << "Час дозапису: "<<ctime(&cur_date);
+            file << "Об\'єм файлу (у байтах): ";
+
+            int size = 0;
+            file.seekg (0, std::ios::end);
+            size = file.tellg();
+            file<< size;
+
+            file.close();
+            return 1;
+
+    }else{
+            cout<< "Файл не відкрито/Не знайдено"<<endl;
+            return 0;
+    }
+}
+
+int lab10task3(string file){
+    int res;
+    fstream fil3;
+    fil3.open(file, ios::app);
+    if(fil3.is_open()){
+            cout<< "Файл успішно відкрито"<<endl;
+            cout<< "Числа для s_calculation"<<endl;
+            float x=checkfl(x);
+            float y=checkfl(y);
+            float z=checkfl(z);
+            fil3<< "\nРезультат s_calculation: "<< s_calculation(x,y,z)<<endl;
+            cout<<"Переведення числа в двійковий код"<<endl;
+            int b=checkint(b);
+            fil3<< "Число "<< b<< " у двійковому коді: ";
+            for (int i=sizeof(b)*8-1; i>=0; --i){
+                fil3<<(int)((b>>i)&1);
+            }
+            fil3.close();
+            res = 1;
+    }else{
+            cout<< "Файл не відкрито/Не знайдено"<<endl;
+            res = 0;
+    }
+    return res;
+}
+
 
